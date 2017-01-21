@@ -15,6 +15,10 @@ namespace ConsoleTest
             Account Acou = new Account(cl, AccountType.Current,AccountCurrency.AMD);
             Banking.Transaction(Acou, TransactionType.AddMoney, 150);
             Console.WriteLine(Acou);
+         Banking.Transaction(Acou, TransactionType.AddMoney, 100);
+            Console.WriteLine(Acou);
+            Banking.Transaction(Acou, TransactionType.WithdrawMoney, 100);
+            Console.WriteLine(Acou);
 
 
             Console.ReadKey();

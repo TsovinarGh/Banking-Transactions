@@ -14,18 +14,18 @@ namespace Bank
             switch (transe)
             {
                 case TransactionType.AddMoney:
-                    CurrentBalance= accou.Balance + money;
+                    CurrentBalance= CurrentBalance + money;
                     break;
                    
                 case TransactionType.WithdrawMoney:
-                    if (accou.Balance >= money)
+                    if (CurrentBalance >= money)
                     {
-                        CurrentBalance = accou.Balance - money;
+                        CurrentBalance = CurrentBalance - money;
                     }
                     break;
                 case TransactionType.Balance:
-                    CurrentBalance = accou.Balance;
-                    break;
+                   return CurrentBalance;
+                    
             }
 
             return CurrentBalance;
