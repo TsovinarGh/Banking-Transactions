@@ -12,7 +12,7 @@ namespace Bank
         public AccountCurrency Curency { get; private set; }
         public AccountType AccountType { get; private set; }
         public Guid AccountNumber { get; private set; }
-        public decimal Balance { get; private set; }
+       // public decimal Balance { get; private set; }
         //private Dictionary<Client,Account> AccountCollection;
        
         // public Dictionary<Client, Dictionary<AccountCurrency, Dictionary<AccountType, Account>>> acountDic;
@@ -23,7 +23,7 @@ namespace Bank
             AccountType = actp;
             Curency = accur;
             AccountNumber = AccountGenerate(actp, accur);
-            Balance = 0;
+            //Balance = 0;
         }
 
         private Guid AccountGenerate(AccountType actp, AccountCurrency accur)

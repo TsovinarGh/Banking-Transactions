@@ -13,6 +13,8 @@ namespace ConsoleTest
         {
            Client cl = new Client("Anna", "Poghosyan",new DateTime(1985,06,12));
             Account Acou = new Account(cl, AccountType.Current,AccountCurrency.AMD);
+            Banking.Transaction(Acou, TransactionType.Balance, 150);
+            Console.WriteLine(Acou);
             Banking.Transaction(Acou, TransactionType.AddMoney, 150);
             Console.WriteLine(Acou);
          Banking.Transaction(Acou, TransactionType.AddMoney, 100);
