@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Banking;
+using Bank;
 
 namespace ConsoleTest
 {
@@ -12,11 +12,10 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
            Client cl = new Client("Anna", "Poghosyan",new DateTime(1985,06,12));
-            string name=cl.Name;
-            Account ac = cl.GetAccount;
-            Account Acou = new Account(cl);
-            
-            Console.WriteLine(cl.ToString());
+            Account Acou = new Account(cl, AccountType.Current,AccountCurrency.AMD);
+            Banking.Transaction(Acou, TransactionType.AddMoney, 150);
+            Console.WriteLine(Acou);
+
 
             Console.ReadKey();
 

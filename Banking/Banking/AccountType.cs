@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking
+namespace Bank
 {
-    enum AccountType
+    public enum AccountType
     {
         Current,
-        Saving,
+        Saving
         //TimeDeposit,
        // Credit
     }

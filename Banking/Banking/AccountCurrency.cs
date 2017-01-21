@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking
+namespace Bank
 {
-    enum AccountCurrency
+    public enum AccountCurrency
     {
         USD,
         AMD,

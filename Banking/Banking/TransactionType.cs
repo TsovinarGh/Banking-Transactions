@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking
+namespace Bank
 {
-    public class Bank
+    public enum TransactionType
     {
-
+        AddMoney,
+        WithdrawMoney,
+        Balance
     }
 }

@@ -41,8 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountCurrency.cs" />
+    <Compile Include="TransactionType.cs" />
     <Compile Include="AccountType.cs" />
-    <Compile Include="Bank.cs" />
+    <Compile Include="Banking.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

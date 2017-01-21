@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking
+namespace Bank
 {
     public class Client
     {
         private const string unValidValue = "UnvalidValue";
         private const int maxAge = 140;
         private const int minAge = 16;
-        private DateTime dt = new DateTime(1111, 11, 11);
+        private DateTime dt = DateTime.MinValue;
         private string name;
         private string surName;
         private Guid id;
         private DateTime birthDay;
-        private Account account;
-        private AccountType accType;
+       
         public string Name
         {
             get
@@ -83,25 +82,6 @@ namespace Banking
                 return Guid.NewGuid();
             }
         }
-        public Account GetAccount
-        {
-            get
-            {
-                return account;
-            }
-            private set
-            {
-                switch (accType)
-                {
-                    case AccountType.Current:
-                        account = new Account(this);
-                        break;
-                    case AccountType.Saving:
-                        account = new Account(this);
-                        break;
-                }
-            }
-        }
 
         public Client(string name, string surName, DateTime birth)
         {
@@ -112,7 +92,7 @@ namespace Banking
         }
         public override string ToString()
         {
-            return ($"Clients date are Name: {Name}, Surname: {SurName}, Birthday {BirthDay}, ID Number {ID}");
+            return ($"Name: {Name}, Surname: {SurName}, Birthday {BirthDay}, ID Number {ID}");
 
         }
 
