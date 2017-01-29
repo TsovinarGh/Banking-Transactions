@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountCurrency.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="AccountEventArgs .cs" />
+    <Compile Include="Money.cs" />
     <Compile Include="TransactionType.cs" />
     <Compile Include="AccountType.cs" />
     <Compile Include="Banking.cs" />

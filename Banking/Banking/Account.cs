@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,62 +10,78 @@ namespace Bank
     public class Account
     {
         public Client Client { get; private set; }
-        public AccountCurrency Curency { get; private set; }
+        public Currency Curency { get; private set; }
         public AccountType AccountType { get; private set; }
         public Guid AccountNumber { get; private set; }
-       // public decimal Balance { get; private set; }
-        //private Dictionary<Client,Account> AccountCollection;
+        public decimal Balance { get; private set; }
        
-        // public Dictionary<Client, Dictionary<AccountCurrency, Dictionary<AccountType, Account>>> acountDic;
-
-        public Account(Client client, AccountType actp, AccountCurrency accur)
+       
+        public Account(Client client, AccountType actp, Currency accur)
         {
             Client = client;
             AccountType = actp;
             Curency = accur;
-            AccountNumber = AccountGenerate(actp, accur);
-            //Balance = 0;
+            try
+            {
+                AccountNumber = AccountGenerate(actp, accur);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); ;
+            }
+            Balance = 0;
+            Banking.balanceRefresh += FillAccountChanging;
         }
 
-        private Guid AccountGenerate(AccountType actp, AccountCurrency accur)
+        private Guid AccountGenerate(AccountType actp, Currency accur)
         {
                 switch (actp)
                 {
                     case AccountType.Current:
                         switch (accur)
                         {
-                            case AccountCurrency.AMD:
+                            case Currency.AMD:
                                return Guid.NewGuid();
                                
-                            case AccountCurrency.EUR:
+                            case Currency.EUR:
                                 return Guid.NewGuid();
                                 
-                            case AccountCurrency.USD:
+                            case Currency.USD:
                                 return Guid.NewGuid();
-                        }                                             // amboghjy uzum em dnenq try catchi mej
+                        }                                            
                         break;
                     case AccountType.Saving:
                         switch (accur)
                         {
-                            case AccountCurrency.AMD:
+                            case Currency.AMD:
                                 return Guid.NewGuid();
                                 
-                            case AccountCurrency.EUR:
+                            case Currency.EUR:
                                 return Guid.NewGuid();
                                 
-                            case AccountCurrency.USD:
+                            case Currency.USD:
                                 return Guid.NewGuid();
                         }
-
                         break;
-                }
+            }
 
             throw new ArgumentException();
         }
 
+      
+        private static void FillAccountChanging(object obj, AccountEventArgs arg)
+        {
+            Account tempAccount = obj as Account;
+            if (tempAccount != null)
+            {
+                tempAccount.Balance = arg.Money.MoneySize;
+            }
+
+        }
+        
         public override string ToString()
         {
-            return ($"Account details are: owner: {Client}, Account Number:{AccountNumber}, Type: {AccountType}, Curency {Curency}, Balance:{Banking.CurrentBalance}");
+            return ($"Account details are: owner: {Client}, Account Number:{AccountNumber}, Type: {AccountType}, Curency {Curency}, Balance:{Balance}");
         }
 
     }

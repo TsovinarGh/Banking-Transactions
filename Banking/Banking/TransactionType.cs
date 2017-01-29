@@ -9,7 +9,7 @@ namespace Bank
     public enum TransactionType
     {
         AddMoney,
-        WithdrawMoney,
-        Balance
+        WithdrawMoney
+        
     }
 }

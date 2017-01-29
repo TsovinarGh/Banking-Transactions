@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
-    public enum AccountCurrency
+    public enum Currency
     {
         USD,
         AMD,
