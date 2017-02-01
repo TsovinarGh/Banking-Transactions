@@ -14,6 +14,7 @@ namespace Bank
         public AccountType AccountType { get; private set; }
         public Guid AccountNumber { get; private set; }
         public decimal Balance { get; private set; }
+        private List<Account> accountInfo;
        
        
         public Account(Client client, AccountType actp, Currency accur)
@@ -31,6 +32,8 @@ namespace Bank
             }
             Balance = 0;
             Banking.balanceRefresh += FillAccountChanging;
+            accountInfo = new List<Account>();
+            accountInfo.Add(this);
         }
 
         private Guid AccountGenerate(AccountType actp, Currency accur)
