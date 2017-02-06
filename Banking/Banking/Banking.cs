@@ -9,7 +9,6 @@ namespace Bank
 {
     public static class Banking
     {
-
         private static decimal currentBalance;
         public static event EventHandler<AccountEventArgs> balanceRefresh;
 
@@ -48,7 +47,7 @@ namespace Bank
             if (account.Curency == money.Curency)
             {
                 currentBalance = account.Balance + money.MoneySize;
-                EventInvoke(account, new Money(currentBalance, account.Curency));
+                AccountEventInvoke(account, new Money(currentBalance, account.Curency));
                 
             }
             else
@@ -65,7 +64,7 @@ namespace Bank
                 if ((account.Balance > money.MoneySize))
                 {
                     currentBalance = account.Balance - money.MoneySize;
-                    EventInvoke(account, new Money(currentBalance, account.Curency));
+                    AccountEventInvoke(account, new Money(currentBalance, account.Curency));
                 }
                 else
                 {
@@ -78,9 +77,9 @@ namespace Bank
             }
         }
 
-        private static void EventInvoke(Account account, Money money)
+        private static void AccountEventInvoke(Account account, Money money)
         {
-                balanceRefresh?.Invoke(account, new AccountEventArgs(account, money));
+                balanceRefresh?.Invoke(account, new AccountEventArgs(money));
         }
     }
 

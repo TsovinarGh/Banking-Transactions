@@ -14,8 +14,8 @@ namespace Bank
         public AccountType AccountType { get; private set; }
         public Guid AccountNumber { get; private set; }
         public decimal Balance { get; private set; }
-        private List<Account> accountInfo;
-       
+        public static event EventHandler<InfoEventArgs> ClientInfo;
+        private ClientInfoCollection accountInfoList= new ClientInfoCollection();       
        
         public Account(Client client, AccountType actp, Currency accur)
         {
@@ -32,8 +32,8 @@ namespace Bank
             }
             Balance = 0;
             Banking.balanceRefresh += FillAccountChanging;
-            accountInfo = new List<Account>();
-            accountInfo.Add(this);
+            accountInfoList.Add(this);
+            ClientInfoInvoke();
         }
 
         private Guid AccountGenerate(AccountType actp, Currency accur)
@@ -87,5 +87,9 @@ namespace Bank
             return ($"Account details are: owner: {Client}, Account Number:{AccountNumber}, Type: {AccountType}, Curency {Curency}, Balance:{Balance}");
         }
 
+        private void ClientInfoInvoke()
+        {
+            ClientInfo?.Invoke(accountInfoList, new InfoEventArgs());
+        }
     }
 }

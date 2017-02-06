@@ -96,6 +96,33 @@ namespace Bank
 
         }
 
+        public static bool operator == (Client cl1, Client cl2)
+        {
+            return cl1.Equals(cl2);
+        }
+
+        public static bool operator !=(Client cl1, Client cl2)
+        {
+            return (!cl1.Equals(cl2));
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Client temp = obj as Client;
+            if (temp == null)
+            {
+                return false;
+            }
+            return ((this.name == temp.name) && (this.surName == temp.surName) && (this.id == temp.id)); 
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
 }

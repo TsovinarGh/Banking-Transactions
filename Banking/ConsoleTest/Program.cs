@@ -22,8 +22,14 @@ namespace ConsoleTest
             Banking.Transaction(Acou, TransactionType.WithdrawMoney, new Money(100, Currency.USD));
             Banking.Transaction(Acou, TransactionType.WithdrawMoney, new Money(100, Currency.AMD));
 
-            Console.WriteLine(Acou.Balance);
-           
+            //Console.WriteLine(Acou.Balance);
+            //ClientInfoCollection collection = new ClientInfoCollection();
+            //foreach (var item in collection.GetEnumerator())
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
 
             Console.ReadKey();
 
