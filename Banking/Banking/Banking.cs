@@ -10,7 +10,7 @@ namespace Bank
     public static class Banking
     {
         private static decimal currentBalance;
-        public static event EventHandler<AccountEventArgs> balanceRefresh;
+        public static event EventHandler<BankingEventArgs> balanceRefresh;
 
         public static void Transaction(Account account, TransactionType type, Money money)
         {
@@ -21,7 +21,7 @@ namespace Bank
                     {
                         AddMoney(account, money);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -41,30 +41,29 @@ namespace Bank
                     throw new ArgumentException();
             }
         }
-        
+
         private static void AddMoney(Account account, Money money)
         {
-            if (account.Curency == money.Curency)
+            if (account.curency == money.curency)
             {
-                currentBalance = account.Balance + money.MoneySize;
-                AccountEventInvoke(account, new Money(currentBalance, account.Curency));
-                
+                currentBalance = account.balance + money.moneySize;
+                balanceRefresh?.Invoke(account, new BankingEventArgs(new Money(currentBalance, account.curency)));
             }
             else
             {
                 throw new ArgumentException("Account and money currencies are not the same");
             }
         }
-  
+
 
         private static void WithdrawMoney(Account account, Money money)
         {
-            if (account.Curency == money.Curency)  
+            if (account.curency == money.curency)
             {
-                if ((account.Balance > money.MoneySize))
+                if ((account.balance > money.moneySize))
                 {
-                    currentBalance = account.Balance - money.MoneySize;
-                    AccountEventInvoke(account, new Money(currentBalance, account.Curency));
+                    currentBalance = account.balance - money.moneySize;
+                    balanceRefresh?.Invoke(account, new BankingEventArgs(new Money(currentBalance, account.curency)));
                 }
                 else
                 {
@@ -76,11 +75,7 @@ namespace Bank
                 throw new ArgumentException("Account and money currencies are not the same");
             }
         }
-
-        private static void AccountEventInvoke(Account account, Money money)
-        {
-                balanceRefresh?.Invoke(account, new AccountEventArgs(money));
-        }
+        
     }
 
 }

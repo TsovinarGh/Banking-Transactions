@@ -11,10 +11,10 @@ namespace Bank
         private const string unValidValue = "UnvalidValue";
         private const int maxAge = 140;
         private const int minAge = 16;
-        private DateTime dt = DateTime.MinValue;
+        private DateTime unValidDateTime = DateTime.MinValue;
         private string name;
         private string surName;
-        private Guid id;
+        private Guid iD;
         private DateTime birthDay;
        
         public string Name
@@ -28,7 +28,6 @@ namespace Bank
                 if (String.IsNullOrEmpty(value) || String.IsNullOrWhiteSpace(value))
                 {
                     name = unValidValue;
-
                 }
                 else
                 {
@@ -47,7 +46,6 @@ namespace Bank
                 if (String.IsNullOrEmpty(value) || String.IsNullOrWhiteSpace(value))
                 {
                     surName = unValidValue;
-
                 }
                 else
                 {
@@ -60,14 +58,13 @@ namespace Bank
             get
             {
                 return birthDay;
-
             }
             private set
             {
                 int temp = DateTime.Now.Year - value.Year;
                 if (temp <= 0 || temp < minAge || temp > maxAge)
                 {
-                    birthDay = dt;
+                    birthDay = unValidDateTime;
                 }
                 else
                 {
@@ -79,7 +76,7 @@ namespace Bank
         {
             get
             {
-                return Guid.NewGuid();
+                return iD; 
             }
         }
 
@@ -87,13 +84,12 @@ namespace Bank
         {
             Name = name;
             SurName = surName;
-            id = ID;
             BirthDay = birth;
+            iD= Guid.NewGuid();
         }
         public override string ToString()
         {
-            return ($"Name: {Name}, Surname: {SurName}, Birthday {BirthDay}, ID Number {ID}");
-
+            return ($"Name: {Name}, Surname: {SurName}, \nBirthday {BirthDay}, \nID Number {ID}");
         }
 
         public static bool operator == (Client cl1, Client cl2)
@@ -117,8 +113,9 @@ namespace Bank
             {
                 return false;
             }
-            return ((this.name == temp.name) && (this.surName == temp.surName) && (this.id == temp.id)); 
+            return ((this.name == temp.name) && (this.surName == temp.surName) && (this.iD == temp.iD)); 
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

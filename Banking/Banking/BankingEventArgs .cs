@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Bank
 {
-    public class InfoEventArgs : EventArgs
+    public class BankingEventArgs: EventArgs
     {
-        public String Args { get; set; }
-        public InfoEventArgs( ) 
+        public Money money { get; private set; }
+      
+        public BankingEventArgs(Money mon ) 
         {
-            Args = String.Empty;
+            this.money = mon;
         }
     }
+
 }

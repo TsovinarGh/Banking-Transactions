@@ -9,31 +9,32 @@ namespace Bank
 {
     public class Account
     {
-        public Client Client { get; private set; }
-        public Currency Curency { get; private set; }
-        public AccountType AccountType { get; private set; }
-        public Guid AccountNumber { get; private set; }
-        public decimal Balance { get; private set; }
-        public static event EventHandler<InfoEventArgs> ClientInfo;
-        private ClientInfoCollection accountInfoList= new ClientInfoCollection();       
-       
-        public Account(Client client, AccountType actp, Currency accur)
+        public Client client { get; private set; }
+        public Currency curency { get; private set; }
+        public AccountType accountType { get; private set; }
+        public Guid accountNumber { get; private set; }
+        public decimal balance { get; private set; }
+        public static event EventHandler<AccountInfoEventArgs> accountInfoEvent; //uzum em aranc statici
+        //private ClientInfoCollection accountList = new ClientInfoCollection();
+         private List<Account> accountList= new List<Account>();       
+
+        public Account(Client client, AccountType actp, Currency curr)
         {
-            Client = client;
-            AccountType = actp;
-            Curency = accur;
+            this.client = client;
+            accountType = actp;
+            curency = curr;
             try
             {
-                AccountNumber = AccountGenerate(actp, accur);
+                accountNumber = AccountGenerate(actp, curr);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message); ;
             }
-            Balance = 0;
+            balance = 0;
             Banking.balanceRefresh += FillAccountChanging;
-            accountInfoList.Add(this);
-            ClientInfoInvoke();
+            accountList.Add(this);
+            AccountInfoEventInvoke();
         }
 
         private Guid AccountGenerate(AccountType actp, Currency accur)
@@ -72,24 +73,23 @@ namespace Bank
         }
 
       
-        private static void FillAccountChanging(object obj, AccountEventArgs arg)
+        private static void FillAccountChanging(object obj, BankingEventArgs arg)
         {
-            Account tempAccount = obj as Account;
-            if (tempAccount != null)
+            Account currentAccount = obj as Account;
+            if (currentAccount != null)
             {
-                tempAccount.Balance = arg.Money.MoneySize;
+                currentAccount.balance = arg.money.moneySize;
             }
-
         }
         
         public override string ToString()
         {
-            return ($"Account details are: owner: {Client}, Account Number:{AccountNumber}, Type: {AccountType}, Curency {Curency}, Balance:{Balance}");
+            return ($"Account details are: owner: {client}, \nAccount Number:{accountNumber}, \nType: {accountType}, \nCurency {curency}, \nBalance:{balance}");
         }
 
-        private void ClientInfoInvoke()
+        private void AccountInfoEventInvoke()
         {
-            ClientInfo?.Invoke(accountInfoList, new InfoEventArgs());
+            accountInfoEvent?.Invoke(this, new AccountInfoEventArgs(accountList));
         }
     }
 }

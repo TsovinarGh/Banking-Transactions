@@ -8,12 +8,12 @@ namespace Bank
 {
     public struct Money
     {
-        public decimal MoneySize { get; set; }
-        public Currency Curency { get; set; }
+        public decimal moneySize { get; set; }
+        public Currency curency { get; set; }
         public Money(decimal money, Currency curr)
         {
-            this.MoneySize = money;
-            this.Curency = curr;
+            this.moneySize = money;
+            this.curency = curr;
         }
     }
 }
